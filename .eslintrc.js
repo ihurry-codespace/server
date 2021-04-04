@@ -5,6 +5,7 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-redeclare': ['off'],
-    '@typescript-eslint/strict-boolean-expressions': ['off']
+    '@typescript-eslint/strict-boolean-expressions': ['off'],
+    '@typescript-eslint/no-namespace': ['off']
   }
 }

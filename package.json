@@ -10,7 +10,8 @@
     "test": "jest --passWithNoTests",
     "test:staged": "jest --passWithNoTests",
     "test:watch": "jest --watchAll",
-    "postinstall": "husky install"
+    "postinstall": "husky install && npx husky add .husky/commit-msg \"npx --no-install commitlint --edit $1\"",
+    "test:coverage": "jest --coverage"
   },
   "author": "rafamaxber@gmail.com",
   "license": "UNLICENSED",

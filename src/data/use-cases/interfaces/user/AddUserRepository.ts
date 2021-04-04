@@ -1,5 +1,5 @@
-import { UserModel } from "./UserModel";
+import { UserModel } from './UserModel'
 
 export interface AddUserRepository {
-  add(userModel: UserModel): Promise<Omit<UserModel, 'password'>>
+  add: (userModel: UserModel) => Promise<Omit<UserModel, 'password'>>
 }

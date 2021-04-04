@@ -1,7 +1,7 @@
-import { CommonUser } from "@domain/entities/User";
+import { CommonUser } from '@domain/entities/User'
 
 export interface AddCommonUser {
-  add(user: Omit<CommonUser, 'id'>): Promise<Omit<CommonUser, 'password'>>
+  add: (user: Omit<CommonUser, 'id'>) => Promise<Omit<CommonUser, 'password'>>
 }
 
 export namespace AddCommonUser {

@@ -1,5 +1,5 @@
 export class EncryptorAdapter {
-  encrypt(value: string) {
-    return encodeURIComponent(value);
+  encrypt (value: string): string {
+    return encodeURIComponent(value)
   }
 }

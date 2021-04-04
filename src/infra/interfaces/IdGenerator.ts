@@ -1,3 +1,3 @@
 export interface IdGenerator {
-  uuid(): string;
+  uuid: () => string
 }

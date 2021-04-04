@@ -1,0 +1,42 @@
+{
+  "name": "ihurry-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development tsnd --transpile-only --respawn --ignore-watch node_modules src/index.ts",
+    "start": "NODE_ENV=production node dist/src/index.js",
+    "build": "NODE_ENV=production rimraf dist && tsc --project tsconfig.production.json",
+    "test": "jest --passWithNoTests",
+    "test:staged": "jest --passWithNoTests",
+    "test:watch": "jest --watchAll",
+    "postinstall": "husky install"
+  },
+  "author": "rafamaxber@gmail.com",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@commitlint/cli": "^12.0.1",
+    "@commitlint/config-conventional": "^12.0.1",
+    "@types/jest": "^26.0.20",
+    "@types/module-alias": "^2.0.0",
+    "@types/node": "^14.14.28",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "eslint": "^7.20.0",
+    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "husky": "^5.0.9",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.5.1",
+    "ts-node-dev": "^1.1.1",
+    "typescript": "^4.2.3"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "dependencies": {
+    "module-alias": "^2.2.2"
+  }
+}

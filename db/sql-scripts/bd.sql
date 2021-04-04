@@ -1,0 +1,1 @@
+create DATABASE test_db_created_by_docker_compose

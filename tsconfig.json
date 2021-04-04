@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "allowJs": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@main/*": ["main/*"],
+      "@presentation/*": ["presentation/*"],
+      "@domain/*": ["domain/*"],
+      "@data/*": ["data/*"],
+      "@infra/*": ["infra/*"],
+      "@utils/*": ["utils/*"]
+    }
+  }
+}

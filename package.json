@@ -12,7 +12,8 @@
     "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "test:watch": "jest --watchAll",
     "postinstall": "husky install && husky add .husky/commit-msg \"npx --no-install commitlint --edit $1\" && husky add .husky/pre-commit \"npm run test\"",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "up": "docker-compose up"
   },
   "author": "rafamaxber@gmail.com",
   "license": "UNLICENSED",
@@ -40,6 +41,9 @@
     "node": "14.x"
   },
   "dependencies": {
-    "module-alias": "^2.2.2"
+    "module-alias": "^2.2.2",
+    "mysql2": "^2.2.5",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.32"
   }
 }

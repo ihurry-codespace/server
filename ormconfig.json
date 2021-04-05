@@ -1,0 +1,19 @@
+{
+  "name": "main",
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "mysql",
+  "password": "supersecret",
+  "database": "ihurry",
+  "synchronize": true,
+  "logging": true,
+  "entities": ["src/infra/db/mysql/entity/*.js"],
+  "subscribers": ["src/infra/db/mysql/subscriber/*.js"],
+  "migrations": ["src/infra/db/mysql/migration/*.js"],
+  "cli": {
+    "entitiesDir": "src/infra/db/mysql/entity",
+    "migrationsDir": "src/infra/db/mysql/migration",
+    "subscribersDir": "src/infra/db/mysql/subscriber"
+  }
+}

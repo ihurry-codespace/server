@@ -8,6 +8,7 @@
     "removeComments": true,
     "strict": true,
     "noUnusedLocals": true,
+    "lib": ["ES2019"],
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
@@ -15,6 +16,8 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "baseUrl": "./src",
     "paths": {
       "@main/*": ["main/*"],

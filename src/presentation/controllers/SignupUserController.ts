@@ -1,28 +1,22 @@
 import { AddCommonUser } from '@domain/usecases/AddCommonUser'
+import { EmailValidator } from '@infra/interfaces/EmailValidator'
 import { InvalidParameterError, MissingParameterError } from '@presentation/errors'
 import { badRequest, ok, serverError } from '@presentation/helpers/http-helper'
 import { HttpRequest, HttpResponse } from '@presentation/interfaces/http'
 
-export interface Params {
-  name?: string
-  email?: string
-  password?: string
-  avatar?: string
-}
-
 export class SignupUserController {
   constructor (
     private readonly addUserService: AddCommonUser,
-    private readonly emailValidator: any
+    private readonly emailValidator: EmailValidator
   ) {}
 
-  async handle (httpRequest: HttpRequest<Params>): Promise<HttpResponse> {
+  async handle (httpRequest: HttpRequest<SignupUser.Params>): Promise<HttpResponse> {
     try {
       const requiredParams = ['name', 'email', 'password', 'avatar']
       const body = httpRequest?.body ?? {}
 
       for (const key of requiredParams) {
-        if (!body[key as keyof Params]) {
+        if (!body[key as keyof SignupUser.Params]) {
           return badRequest(new MissingParameterError(key))
         }
       }
@@ -42,5 +36,14 @@ export class SignupUserController {
     } catch (error) {
       return serverError()
     }
+  }
+}
+
+export namespace SignupUser {
+  export interface Params {
+    name?: string
+    email?: string
+    password?: string
+    avatar?: string
   }
 }

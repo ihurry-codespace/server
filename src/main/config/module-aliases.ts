@@ -1,7 +1,7 @@
-import { addAliases } from 'module-alias';
-import { resolve } from 'path';
+import { addAliases } from 'module-alias'
+import { resolve } from 'path'
 
-const BASE_URL = process.env.NODE_ENV === 'production' ? './dist/src' : './src';
+const BASE_URL = process.env.NODE_ENV === 'production' ? './dist/src' : './src'
 
 addAliases({
   '@domain': resolve(`${BASE_URL}/domain`),
@@ -9,5 +9,5 @@ addAliases({
   '@infra': resolve(`${BASE_URL}/infra`),
   '@data': resolve(`${BASE_URL}/data`),
   '@main': resolve(`${BASE_URL}/main`),
-  '@utils': resolve(`${BASE_URL}/utils`),
-});
+  '@utils': resolve(`${BASE_URL}/utils`)
+})

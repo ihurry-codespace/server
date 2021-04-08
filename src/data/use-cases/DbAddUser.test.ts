@@ -1,7 +1,6 @@
 import { AddCommonUser } from '@domain/usecases/AddCommonUser'
-import { Encryptor, IdGenerator } from '@infra/interfaces'
 import { AddUser } from './DbAddUser'
-import { AddUserRepository, FindUserRepository, UserModel } from './interfaces'
+import { AddUserRepository, Encryptor, FindUserRepository, IdGenerator, UserModel } from './interfaces'
 
 class AddUserTestBuilder {
   private readonly userParams: AddCommonUser.Params

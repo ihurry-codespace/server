@@ -1,6 +1,5 @@
 import { AddCommonUser } from '@domain/usecases/AddCommonUser'
-import { Encryptor, IdGenerator } from '@infra/interfaces'
-import { AddUserRepository, FindUserRepository } from './interfaces'
+import { AddUserRepository, Encryptor, FindUserRepository, IdGenerator } from './interfaces'
 
 export class AddUser implements AddCommonUser {
   constructor (

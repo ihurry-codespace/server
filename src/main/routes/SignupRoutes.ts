@@ -19,6 +19,6 @@ export default async (router: FastifyInstance): Promise<void> => {
       body
     })
 
-    await reply.send(result)
+    await reply.status(result.statusCode).send(result)
   })
 }

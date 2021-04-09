@@ -1,3 +1,9 @@
+const { join } = require('path')
+
+const entityPath = join(__dirname, '../../**/entity/*.ts')
+const migrationPath = join(__dirname, '../../**/migration/*.ts')
+const subscriberPath = join(__dirname, '../../**/subscriber/*.ts')
+
 module.exports = {
   dbConfig: {
     main: {
@@ -9,9 +15,9 @@ module.exports = {
       database: 'ihurry',
       synchronize: true,
       logging: false,
-      entities: ['src/infra/db/mysql/entity/*.ts'],
-      subscribers: ['src/infra/db/mysql/subscriber/*.ts'],
-      migrations: ['src/infra/db/mysql/migration/*.ts'],
+      entities: [entityPath],
+      subscribers: [subscriberPath],
+      migrations: [migrationPath],
       cli: {
         entitiesDir: 'src/infra/db/mysql/entity',
         migrationsDir: 'src/infra/db/mysql/migration',

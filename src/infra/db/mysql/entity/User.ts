@@ -1,5 +1,17 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, ColumnOptions } from 'typeorm'
 
+function wrapDateTypesForTest (): any {
+  if (process.env.NODE_ENV === 'test') {
+    return {
+      createdAt: { type: 'text' },
+      updatedAt: { type: 'text' }
+    }
+  }
+  return {
+    createdAt: { type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' },
+    updatedAt: { type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' }
+  }
+}
 @Entity()
 export class User {
   @PrimaryColumn()
@@ -17,9 +29,9 @@ export class User {
   @Column()
   public avatar!: string
 
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
+  @CreateDateColumn(wrapDateTypesForTest().createdAt as ColumnOptions)
   public createdAt!: Date
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
+  @UpdateDateColumn(wrapDateTypesForTest().updatedAt as ColumnOptions)
   public updatedAt!: Date
 }

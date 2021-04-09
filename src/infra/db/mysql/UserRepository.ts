@@ -3,7 +3,7 @@ import { User } from './entity/User'
 import { AddUserRepository, FindUserRepository, UserModel } from '@data/use-cases/interfaces'
 
 export class UserRepository implements AddUserRepository, FindUserRepository {
-  private readonly defaultConnectionName = 'main'
+  private readonly defaultConnectionName = 'default'
 
   async add (userModel: UserModel): Promise<Omit<UserModel, 'password'>> {
     const result = await getRepository(User, this.defaultConnectionName).insert(userModel)

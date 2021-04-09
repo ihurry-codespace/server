@@ -1,7 +1,22 @@
-import app from '@main/config/app'
 import { validate as uuidValidate } from 'uuid'
 
-// TODO: criar arquivo de configuracao para isolar criacao de banco de dados em memoria
+import app from '@main/config/app'
+import { DatabaseTestUtils } from '../DatabaseTestUtils'
+
+jest.setTimeout(20000)
+
+beforeAll(async () => {
+  await DatabaseTestUtils.connect()
+})
+
+afterAll(async () => {
+  await DatabaseTestUtils.close()
+})
+
+afterEach(async () => {
+  await DatabaseTestUtils.dropDatabase()
+})
+
 it('should return a correct payload', async () => {
   const response = await app.inject().post('/api/signup').body({
     name: 'Any name',

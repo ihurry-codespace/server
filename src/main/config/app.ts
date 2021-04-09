@@ -1,12 +1,7 @@
 import fastify from 'fastify'
 import { setupRoutes, setupMiddlewares } from '@main/config'
 
-const app = fastify({
-  logger: {
-    level: 'info',
-    prettyPrint: true
-  }
-})
+const app = fastify()
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 Promise.all([

@@ -1,19 +1,13 @@
 import { FastifyInstance } from 'fastify'
-import path from 'path'
-import fg from 'fast-glob'
+import { readdirSync } from 'fs'
 
 export async function setupRoutes (app: FastifyInstance): Promise<void> {
   await app.register(function (instance, _opts, done) {
-    fg.sync('**/src/main/routes/**Route.ts').map(async file => {
-      (await import(path.join('../../../', file))).default(instance)
-    })
-
-    done()
-  })
-
-  await app.register(function (instance, _opts, done) {
-    fg.sync('**/src/main/routes/**Routes.ts').map(async file => {
-      (await import(path.join('../../../', file))).default(instance)
+    // eslint-disable-next-line node/no-path-concat
+    readdirSync(`${__dirname}/../routes`).map(async file => {
+      if (!file.endsWith('.map')) {
+        (await import(`../routes/${file}`)).default(instance)
+      }
     })
 
     done()

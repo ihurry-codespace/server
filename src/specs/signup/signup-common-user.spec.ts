@@ -1,6 +1,7 @@
 import app from '@main/config/app'
 import { validate as uuidValidate } from 'uuid'
 
+// TODO: criar arquivo de configuracao para isolar criacao de banco de dados em memoria
 it('should return a correct payload', async () => {
   const response = await app.inject().post('/api/signup').body({
     name: 'Any name',

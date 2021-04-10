@@ -14,7 +14,7 @@ export const startServer = async (): Promise<void> => {
       console.log(`Server listening at ${address}`)
     })
   } catch (err) {
-    app.log.error(err)
+    console.error(err)
     process.exit(1)
   }
 }

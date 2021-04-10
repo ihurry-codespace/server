@@ -1,8 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "exclude": [
-    "jest.config.js",
+    "jest*.js",
+    "coverage",
     "commitlint.config.js",
+    "**/specs",
+    "**/tests",
     "**/*.test.ts",
     "**/*.spec.ts"
   ]

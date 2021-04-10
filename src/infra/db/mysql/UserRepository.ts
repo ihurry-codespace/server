@@ -13,12 +13,12 @@ export class UserRepository implements AddUserRepository, FindUserRepository {
     return { name, avatar, email, id }
   }
 
-  async findByEmail (email: string): Promise<Omit<UserModel, 'password'> | null> {
+  async findByEmail (email: string): Promise<UserModel | null> {
     const user = await getRepository(User, this.defaultConnectionName).findOne({ where: { email } })
 
     if (user) {
-      const { name, avatar, email, id } = user
-      return { name, avatar, email, id }
+      const { name, avatar, email, id, password } = user
+      return { name, avatar, email, id, password }
     }
 
     return null

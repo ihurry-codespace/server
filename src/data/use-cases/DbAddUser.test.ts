@@ -1,6 +1,12 @@
 import { AddCommonUser } from '@domain/usecases/AddCommonUser'
 import { AddUser } from './DbAddUser'
-import { AddUserRepository, Encryptor, FindUserRepository, IdGenerator, UserModel } from './interfaces'
+import {
+  AddUserRepository,
+  Encryptor,
+  FindUserRepository,
+  IdGenerator,
+  UserModel
+} from './interfaces'
 
 class AddUserTestBuilder {
   private readonly userParams: AddCommonUser.Params
@@ -26,9 +32,7 @@ class AddUserTestBuilder {
     }
 
     class FindUserRepositoryStub implements FindUserRepository {
-      async findByEmail (
-        _email: string
-      ): Promise<Omit<UserModel, 'password'> | null> {
+      async findByEmail (_email: string): Promise<UserModel | null> {
         return null
       }
     }
@@ -57,11 +61,10 @@ class AddUserTestBuilder {
 
   withExistentUser (): AddUserTestBuilder {
     class FindUserRepositoryStub implements FindUserRepository {
-      async findByEmail (
-        _email: string
-      ): Promise<Omit<UserModel, 'password'> | null> {
+      async findByEmail (_email: string): Promise<UserModel | null> {
         return await Promise.resolve({
           id: 'any-uuid',
+          password: 'any-password',
           avatar: 'http://',
           email: 'test@example.com',
           name: 'test'
@@ -108,6 +111,7 @@ test('should return existent user', async () => {
       "email": "test@example.com",
       "id": "any-uuid",
       "name": "test",
+      "password": "any-password",
     }
   `)
 })

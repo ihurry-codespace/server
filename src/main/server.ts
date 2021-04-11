@@ -1,3 +1,4 @@
+import { config } from '@infra/ConfigAdapter'
 import { mainConnection } from '@infra/db/mysql/setup'
 import app from '@main/config/app'
 
@@ -6,7 +7,12 @@ export const startServer = async (): Promise<void> => {
     console.log('⬜ Connecting database...')
     await mainConnection()
     console.log('✅ Connected database')
-    app.listen(8080, (err, address) => {
+
+    const { HOST, PORT } = config.getAppConfig()
+    app.listen({
+      port: PORT,
+      host: HOST
+    }, (err, address) => {
       if (err) {
         console.error(err)
         process.exit(1)

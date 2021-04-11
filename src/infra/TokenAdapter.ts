@@ -1,5 +1,6 @@
 import { AuthToken } from '@domain/usecases/AuthToken'
 import jwt from 'jsonwebtoken'
+import { config } from './ConfigAdapter'
 
 export class TokenAdapter implements AuthToken {
   private readonly algorithm: jwt.Algorithm
@@ -7,9 +8,11 @@ export class TokenAdapter implements AuthToken {
   private readonly privateKey: string
 
   constructor () {
-    this.algorithm = 'HS256'
-    this.expiresIn = '24h'
-    this.privateKey = 'super-secret'
+    const { algorithm, expiresIn, privateKey } = config.getTokenConfig()
+
+    this.algorithm = algorithm
+    this.expiresIn = expiresIn
+    this.privateKey = privateKey
   }
 
   async generate (user: AuthToken.Params): Promise<AuthToken.Result> {

@@ -1,6 +1,9 @@
 import { addAliases } from 'module-alias'
 import { resolve } from 'path'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config()
+
 const BASE_URL = process.env.NODE_ENV === 'production' ? './dist/src' : './src'
 
 addAliases({

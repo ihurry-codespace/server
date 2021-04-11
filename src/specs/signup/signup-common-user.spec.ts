@@ -1,4 +1,5 @@
 import { validate as uuidValidate } from 'uuid'
+import isJWT from 'validator/lib/isJWT'
 
 import app from '@main/config/app'
 import { DatabaseTestUtils } from '../DatabaseTestUtils'
@@ -29,6 +30,7 @@ it('should return a correct payload', async () => {
 
   expect(response.statusCode).toBe(200)
   expect(uuidValidate(body.id)).toBe(true)
+  expect(isJWT(body.token)).toBe(true)
   expect(body.name).toBe('Any name')
   expect(body.email).toBe('any@email.com')
   expect(body.password).toBeUndefined()

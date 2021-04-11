@@ -23,10 +23,15 @@ export class DatabaseTestUtils {
 
     if (!DatabaseTestUtils.getInstance().connection) {
       DatabaseTestUtils.getInstance().connection = await createConnection({
-        type: 'sqlite',
-        database: 'ihurry.sqlite',
+        type: 'mysql',
+        host: 'localhost',
+        port: 3306,
+        username: 'mysql',
+        password: 'supersecret',
+        database: 'ihurry-test-database',
         synchronize: true,
-        logging: false,
+        logging: true,
+        dropSchema: true,
         entities: [entityPath],
         subscribers: [subscriberPath],
         migrations: [migrationPath]

@@ -1,19 +1,16 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, ColumnOptions } from 'typeorm'
+import { Entity, Column, PrimaryColumn } from 'typeorm'
+import { EntityUpdateControl } from './EntityUpdateControl'
 
-function wrapDateTypesForTest (): any {
-  if (process.env.NODE_ENV === 'test') {
-    return {
-      createdAt: { type: 'text' },
-      updatedAt: { type: 'text' }
-    }
-  }
-  return {
-    createdAt: { type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' },
-    updatedAt: { type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' }
-  }
+export enum UserStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  BLOCKED = 'blocked',
+  DELETED = 'deleted',
+  NEWREG = 'newreg',
 }
+
 @Entity()
-export class User {
+export class User extends EntityUpdateControl {
   @PrimaryColumn()
   public id!: string
 
@@ -26,12 +23,13 @@ export class User {
   @Column()
   public email!: string
 
-  @Column()
+  @Column({ nullable: true })
   public avatar!: string
 
-  @CreateDateColumn(wrapDateTypesForTest().createdAt as ColumnOptions)
-  public createdAt!: Date
-
-  @UpdateDateColumn(wrapDateTypesForTest().updatedAt as ColumnOptions)
-  public updatedAt!: Date
+  @Column({
+    type: 'enum',
+    enum: UserStatus,
+    default: UserStatus.ACTIVE
+  })
+  public status!: string
 }

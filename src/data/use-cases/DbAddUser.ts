@@ -1,4 +1,5 @@
 import { AddCommonUser } from '@domain/usecases/AddCommonUser'
+import { AuthToken } from '@domain/usecases/AuthToken'
 import { AddUserRepository, Encryptor, FindUserRepository, IdGenerator } from './interfaces'
 
 export class AddUser implements AddCommonUser {
@@ -6,24 +7,35 @@ export class AddUser implements AddCommonUser {
     private readonly addUserRepository: AddUserRepository,
     private readonly findUserRepository: FindUserRepository,
     private readonly hash: Encryptor,
-    private readonly idGenerator: IdGenerator
+    private readonly idGenerator: IdGenerator,
+    private readonly tokenGenerator: AuthToken
   ) {}
 
-  async add (user: AddCommonUser.Params): Promise<AddCommonUser.Result> {
-    const existentUser = await this.findUserRepository.findByEmail(user.email)
+  async add (userData: AddCommonUser.Params): Promise<AddCommonUser.Result> {
+    const existentUser = await this.findUserRepository.findByEmail(userData.email)
 
     if (existentUser) {
-      return existentUser
+      throw new Error('There is already a user registered with this email')
     }
 
     const userModel = {
       id: this.idGenerator.uuid(),
-      name: user.name,
-      email: user.email,
-      password: await this.hash.encrypt(user.password),
-      avatar: user.avatar
+      name: userData.name,
+      email: userData.email,
+      password: await this.hash.encrypt(userData.password),
+      avatar: userData.avatar
     }
 
-    return await this.addUserRepository.add(userModel)
+    const user = await this.addUserRepository.add(userModel)
+
+    const { token } = await this.tokenGenerator.generate({
+      id: userModel.id,
+      name: userModel.name
+    })
+
+    return {
+      ...user,
+      token
+    }
   }
 }

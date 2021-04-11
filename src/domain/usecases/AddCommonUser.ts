@@ -7,5 +7,7 @@ export interface AddCommonUser {
 export namespace AddCommonUser {
   export type Params = Omit<CommonUser, 'id'>
 
-  export type Result = Omit<CommonUser, 'password'>
+  export interface Result extends Omit<CommonUser, 'password'> {
+    token: string
+  }
 }

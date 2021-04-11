@@ -24,7 +24,11 @@ class SignupTestBuilder {
     class AddUserServiceStub implements AddCommonUser {
       async add (user: AddCommonUser.Params): Promise<AddCommonUser.Result> {
         const { password, ...rest } = user
-        return await Promise.resolve({ id: 'any-generated-uuid', ...rest })
+        return await Promise.resolve({
+          id: 'any-generated-uuid',
+          token: 'any-token',
+          ...rest
+        })
       }
     }
 
@@ -137,6 +141,7 @@ test('should return success when signup a user with generated ID and without pas
       "email": "test@example.com",
       "id": "any-generated-uuid",
       "name": "any name",
+      "token": "any-token",
     }
   `)
 })

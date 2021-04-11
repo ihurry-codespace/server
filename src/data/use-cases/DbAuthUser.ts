@@ -1,3 +1,4 @@
+import { InvalidPasswordException, UserNotFoundException } from '@data/exceptions'
 import { AuthToken } from '@domain/usecases/AuthToken'
 import { AuthUser } from '@domain/usecases/AuthUser'
 import { EncryptorCompare, FindUserRepository } from './interfaces'
@@ -11,10 +12,10 @@ export class DbAuthUser implements AuthUser {
 
   public async login (user: AuthUser.Params): Promise<AuthUser.Result> {
     const dbUser = await this.findUserRepository.findByEmail(user.email)
-    if (!dbUser) throw new Error('User not found')
+    if (!dbUser) throw new UserNotFoundException()
 
     const isValidPassword = await this.hash.compare(user.password, dbUser.password)
-    if (!isValidPassword) throw new Error('Password incorrect')
+    if (!isValidPassword) throw new InvalidPasswordException()
 
     const { id, name } = dbUser
     const token = await this.token.generate({

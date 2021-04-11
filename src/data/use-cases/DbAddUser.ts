@@ -1,3 +1,4 @@
+import { DuplicateUserException } from '@data/exceptions/DuplicateUserException'
 import { AddCommonUser } from '@domain/usecases/AddCommonUser'
 import { AuthToken } from '@domain/usecases/AuthToken'
 import { AddUserRepository, Encryptor, FindUserRepository, IdGenerator } from './interfaces'
@@ -15,7 +16,7 @@ export class AddUser implements AddCommonUser {
     const existentUser = await this.findUserRepository.findByEmail(userData.email)
 
     if (existentUser) {
-      throw new Error('There is already a user registered with this email')
+      throw new DuplicateUserException()
     }
 
     const userModel = {

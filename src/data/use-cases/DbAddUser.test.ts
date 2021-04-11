@@ -1,4 +1,5 @@
 import { AddCommonUser } from '@domain/usecases/AddCommonUser'
+import { AuthToken } from '@domain/usecases/AuthToken'
 import { AddUser } from './DbAddUser'
 import {
   AddUserRepository,
@@ -14,6 +15,7 @@ class AddUserTestBuilder {
   private findUserRepository: FindUserRepository
   private readonly hash: Encryptor
   private readonly idGenerator: IdGenerator
+  private readonly tokenGenerator: AuthToken
 
   constructor () {
     this.userParams = {
@@ -48,7 +50,13 @@ class AddUserTestBuilder {
         return 'any-uuid-value'
       }
     }
-
+    class TokenGeneratorStub implements AuthToken {
+      async generate (_user: AuthToken.Params): Promise<AuthToken.Result> {
+        const token = await Promise.resolve('any-token')
+        return { token }
+      }
+    }
+    this.tokenGenerator = new TokenGeneratorStub()
     this.addUserRepository = new AddUserRepositoryStub()
     this.findUserRepository = new FindUserRepositoryStub()
     this.hash = new EncryptorStub()
@@ -82,7 +90,8 @@ class AddUserTestBuilder {
       this.addUserRepository,
       this.findUserRepository,
       this.hash,
-      this.idGenerator
+      this.idGenerator,
+      this.tokenGenerator
     )
 
     return await sut.add(this.userParams)
@@ -98,20 +107,15 @@ test('should save a user on repository', async () => {
       "email": "test@example.com",
       "id": "any-uuid-value",
       "name": "test",
+      "token": "any-token",
     }
   `)
 })
 
 test('should return existent user', async () => {
-  const sut = await AddUserTestBuilder.init().withExistentUser().build()
-
-  expect(sut).toMatchInlineSnapshot(`
-    Object {
-      "avatar": "http://",
-      "email": "test@example.com",
-      "id": "any-uuid",
-      "name": "test",
-      "password": "any-password",
-    }
-  `)
+  await expect(
+    AddUserTestBuilder.init().withExistentUser().build()
+  ).rejects.toThrowErrorMatchingInlineSnapshot(
+    '"There is already a user registered with this email"'
+  )
 })

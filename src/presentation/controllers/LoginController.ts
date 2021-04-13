@@ -1,9 +1,11 @@
 import { AuthUser } from '@domain/usecases/AuthUser'
 import { errorManager, ok } from '@presentation/helpers/http-helper'
 import { HttpRequest, HttpResponse } from '@presentation/interfaces/http'
+import { I18nType } from '@presentation/interfaces/I18n'
 
 export class LoginController {
   constructor (
+    private readonly i18nProvider: I18nType,
     private readonly authUser: AuthUser
   ) {}
 
@@ -20,7 +22,7 @@ export class LoginController {
         token
       })
     } catch (error) {
-      return errorManager(error)
+      return errorManager({ error, i18n: this.i18nProvider })
     }
   }
 }

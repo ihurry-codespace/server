@@ -2,6 +2,7 @@ import { AddUser } from '@data/use-cases/DbAddUser'
 import { UserRepository } from '@infra/db/mysql/UserRepository'
 import { EmailValidatorAdapter } from '@infra/EmailValidatorAdapter'
 import { EncryptorAdapter } from '@infra/EncryptorAdapter'
+import { I18nAdapter } from '@infra/I18nAdapter'
 import { IdGeneratorAdapter } from '@infra/IdGenerator'
 import { TokenAdapter } from '@infra/TokenAdapter'
 import { SignupUserController } from '@presentation/controllers/SignupUserController'
@@ -22,7 +23,10 @@ export function makeSignupUserController (): SignupUserController {
     token
   )
 
+  const i18n = I18nAdapter.i18n()
+
   return new SignupUserController(
+    i18n,
     addUser,
     emailValidatorAdapter
   )

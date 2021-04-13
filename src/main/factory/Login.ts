@@ -1,6 +1,7 @@
 import { DbAuthUser } from '@data/use-cases/DbAuthUser'
 import { UserRepository } from '@infra/db/mysql/UserRepository'
 import { EncryptorAdapter } from '@infra/EncryptorAdapter'
+import { I18nAdapter } from '@infra/I18nAdapter'
 import { TokenAdapter } from '@infra/TokenAdapter'
 import { LoginController } from '@presentation/controllers/LoginController'
 
@@ -13,5 +14,7 @@ export function makeLogin (): LoginController {
     hash,
     token
   )
-  return new LoginController(dbAuthUser)
+  const i18n = I18nAdapter.i18n()
+
+  return new LoginController(i18n, dbAuthUser)
 }

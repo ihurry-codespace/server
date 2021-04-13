@@ -1,5 +1,5 @@
 import { AuthUser } from '@domain/usecases/AuthUser'
-import { ok, serverError } from '@presentation/helpers/http-helper'
+import { errorManager, ok } from '@presentation/helpers/http-helper'
 import { HttpRequest, HttpResponse } from '@presentation/interfaces/http'
 
 export class LoginController {
@@ -20,8 +20,7 @@ export class LoginController {
         token
       })
     } catch (error) {
-      console.error(error)
-      return serverError()
+      return errorManager(error)
     }
   }
 }

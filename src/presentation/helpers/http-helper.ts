@@ -1,3 +1,4 @@
+import { Exception } from '@data/exceptions/Exception'
 import { ServerError } from '@presentation/errors'
 import { HttpResponse } from '@presentation/interfaces/http'
 
@@ -20,4 +21,14 @@ export function ok (body: any): HttpResponse {
     statusCode: 200,
     body
   }
+}
+
+export function errorManager (error: Error, _params: any = {}): HttpResponse {
+  let response = serverError()
+
+  if (error instanceof Exception) {
+    response = badRequest(error)
+  }
+
+  return response
 }

@@ -14,13 +14,13 @@ export const startServer = async (): Promise<void> => {
       host: HOST
     }, (err, address) => {
       if (err) {
-        console.error(err)
+        app.log.error(err)
         process.exit(1)
       }
       console.log(`Server listening at ${address}`)
     })
   } catch (err) {
-    console.error(err)
+    app.log.error(err)
     process.exit(1)
   }
 }

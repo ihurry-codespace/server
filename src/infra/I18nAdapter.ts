@@ -37,7 +37,7 @@ export class I18nAdapter {
   findAndSetLocale (request: FastifyRequest): I18nAdapter {
     const lang = (request.query as { lang: string })?.lang
     const locale = lang || request.headers['accept-language']
-    console.log('==> ', { locale, query: request.query })
+
     locale && this.setLocale(locale)
 
     return this

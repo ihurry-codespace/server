@@ -6,3 +6,9 @@ export interface HttpResponse<T = any> {
 export interface HttpRequest<T = any> {
   body: T
 }
+
+export interface ErrorBody {
+  message: string
+  code: string
+  stack?: string
+}

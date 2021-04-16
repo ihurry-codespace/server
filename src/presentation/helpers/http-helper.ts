@@ -1,19 +1,18 @@
 import { Exception } from '@data/exceptions/Exception'
 import { ServerError } from '@presentation/errors'
-import { HttpResponse } from '@presentation/interfaces/http'
-import { I18nType } from '@presentation/interfaces/I18n'
+import { ErrorBody, HttpResponse } from '@presentation/interfaces/http'
 
 export function badRequest (error: Error): HttpResponse {
   return {
     statusCode: 400,
-    body: error
+    body: errorBody(error)
   }
 }
 
-export function serverError (): HttpResponse {
+export function serverError (error: Error): HttpResponse {
   return {
     statusCode: 500,
-    body: new ServerError()
+    body: errorBody(new ServerError(error))
   }
 }
 
@@ -24,14 +23,20 @@ export function ok (body: any): HttpResponse {
   }
 }
 
-export function errorManager ({ error, options = '', i18n }: { error: Error, options?: any, i18n: I18nType }): HttpResponse {
-  console.error(error)
-  let response = serverError()
+export function errorBody (error: Error): ErrorBody {
+  return {
+    message: error?.message ?? '',
+    code: error?.name ?? '',
+    stack: error?.stack ?? ''
+  }
+}
+
+export function errorManager (error: Error): HttpResponse {
+  let response = serverError(error)
 
   if (error instanceof Exception) {
     response = badRequest(error)
   }
 
-  response.body = i18n.translate(response.body.message, ...options)
   return response
 }

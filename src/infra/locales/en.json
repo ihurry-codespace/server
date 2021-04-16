@@ -1,3 +1,5 @@
 {
-  "User not found": "User not found"
+	"User not found": "User not found",
+	"There is already a user registered with this email": "There is already a user registered with this email",
+	"Internal server error": "Internal server error"
 }

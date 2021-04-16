@@ -89,35 +89,45 @@ test('should return 400 if name is not provided', async () => {
   const result = await SignupTestBuilder.init().removeParam('name').build()
 
   expect(result.statusCode).toBe(400)
-  expect(result.body).toEqual(new MissingParameterError('name'))
+  expect(result.body.message).toEqual(new MissingParameterError('name').message)
+  expect(result.body.code).toEqual(new MissingParameterError('name').name)
+  expect(result.body.stack).toBeTruthy()
 })
 
 test('should return 400 if password is not provided', async () => {
   const result = await SignupTestBuilder.init().removeParam('password').build()
 
   expect(result.statusCode).toBe(400)
-  expect(result.body).toEqual(new MissingParameterError('password'))
+  expect(result.body.message).toEqual(new MissingParameterError('password').message)
+  expect(result.body.code).toEqual(new MissingParameterError('password').name)
+  expect(result.body.stack).toBeTruthy()
 })
 
 test('should return 400 if email is not provided', async () => {
   const result = await SignupTestBuilder.init().removeParam('email').build()
 
   expect(result.statusCode).toBe(400)
-  expect(result.body).toEqual(new MissingParameterError('email'))
+  expect(result.body.message).toEqual(new MissingParameterError('email').message)
+  expect(result.body.code).toEqual(new MissingParameterError('email').name)
+  expect(result.body.stack).toBeTruthy()
 })
 
 test('should return 400 if avatar is not provided', async () => {
   const result = await SignupTestBuilder.init().removeParam('avatar').build()
 
   expect(result.statusCode).toBe(400)
-  expect(result.body).toEqual(new MissingParameterError('avatar'))
+  expect(result.body.message).toEqual(new MissingParameterError('avatar').message)
+  expect(result.body.code).toEqual(new MissingParameterError('avatar').name)
+  expect(result.body.stack).toBeTruthy()
 })
 
 test('should return 400 when email is invalid', async () => {
   const result = await SignupTestBuilder.init().whenEmailIsInvalid().build()
 
   expect(result.statusCode).toBe(400)
-  expect(result.body).toEqual(new InvalidParameterError('email'))
+  expect(result.body.message).toEqual(new InvalidParameterError('email').message)
+  expect(result.body.code).toEqual(new InvalidParameterError('email').name)
+  expect(result.body.stack).toBeTruthy()
 })
 
 test('should return 500 when email throw any error', async () => {
@@ -126,7 +136,10 @@ test('should return 500 when email throw any error', async () => {
     .build()
 
   expect(result.statusCode).toBe(500)
-  expect(result.body).toEqual(new ServerError())
+  const error = new Error('any message')
+  expect(result.body.message).toEqual(new ServerError(error).message)
+  expect(result.body.code).toEqual(new ServerError(error).name)
+  expect(result.body.stack).toBeTruthy()
 })
 
 test('should return success when signup a user with generated ID and without password', async () => {

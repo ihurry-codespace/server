@@ -3,9 +3,12 @@ import { UserRepository } from '@infra/db/mysql/UserRepository'
 import { EncryptorAdapter } from '@infra/EncryptorAdapter'
 import { I18nAdapter } from '@infra/I18nAdapter'
 import { TokenAdapter } from '@infra/TokenAdapter'
+import { TranslateErrorMessageDecorator } from '@main/decorators/TranslateErrorMessageDecorator'
+import { LogDecorator } from '@main/decorators/LogDecorator'
 import { LoginController } from '@presentation/controllers/LoginController'
+import { Controller } from '@presentation/interfaces/Controller'
 
-export function makeLogin (): LoginController {
+export function makeLogin (): Controller {
   const findUserRepository = new UserRepository()
   const hash = new EncryptorAdapter()
   const token = new TokenAdapter()
@@ -16,5 +19,9 @@ export function makeLogin (): LoginController {
   )
   const i18n = I18nAdapter.i18n()
 
-  return new LoginController(i18n, dbAuthUser)
+  const mainController = new LogDecorator(
+    new TranslateErrorMessageDecorator(new LoginController(dbAuthUser), i18n)
+  )
+
+  return mainController
 }

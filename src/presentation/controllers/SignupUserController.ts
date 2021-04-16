@@ -3,11 +3,9 @@ import { EmailValidator } from '@infra/interfaces/EmailValidator'
 import { InvalidParameterError, MissingParameterError } from '@presentation/errors'
 import { badRequest, errorManager, ok } from '@presentation/helpers/http-helper'
 import { HttpRequest, HttpResponse } from '@presentation/interfaces/http'
-import { I18nType } from '@presentation/interfaces/I18n'
 
 export class SignupUserController {
   constructor (
-    private readonly i18nProvider: I18nType,
     private readonly addUserService: AddCommonUser,
     private readonly emailValidator: EmailValidator
   ) {}
@@ -44,7 +42,7 @@ export class SignupUserController {
       })
       return ok(user)
     } catch (error) {
-      return errorManager({ error, i18n: this.i18nProvider })
+      return errorManager(error)
     }
   }
 }

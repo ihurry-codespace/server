@@ -1,6 +1,6 @@
 import { AuthUser } from '@domain/usecases/AuthUser'
 import { HttpRequest, HttpResponse } from '@presentation/interfaces/http'
-import { Login, LoginController } from './LoginController'
+import { Login, LoginController } from '../LoginController'
 
 class LoginTestBuilder {
   private readonly authServiceStub: AuthUser

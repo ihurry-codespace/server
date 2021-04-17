@@ -1,11 +1,11 @@
 import { InvalidPasswordException, UserNotFoundException } from '@data/exceptions'
 import { AuthToken } from '@domain/usecases/AuthToken'
 import { AuthUser } from '@domain/usecases/AuthUser'
-import { EncryptorCompare, FindUserRepository } from './interfaces'
+import { EncryptorCompare, FindUserByEmailRepository } from './interfaces'
 
 export class DbAuthUser implements AuthUser {
   constructor (
-    private readonly findUserRepository: FindUserRepository,
+    private readonly findUserRepository: FindUserByEmailRepository,
     private readonly hash: EncryptorCompare,
     private readonly token: AuthToken
   ) {}

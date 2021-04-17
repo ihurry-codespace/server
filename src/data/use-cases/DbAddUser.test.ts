@@ -1,10 +1,10 @@
 import { AddCommonUser } from '@domain/usecases/AddCommonUser'
 import { AuthToken } from '@domain/usecases/AuthToken'
-import { AddUser } from './DbAddUser'
+import { DbAddUser } from './DbAddUser'
 import {
   AddUserRepository,
   Encryptor,
-  FindUserRepository,
+  FindUserByEmailRepository,
   IdGenerator,
   UserModel
 } from './interfaces'
@@ -12,7 +12,7 @@ import {
 class AddUserTestBuilder {
   private readonly userParams: AddCommonUser.Params
   private readonly addUserRepository: AddUserRepository
-  private findUserRepository: FindUserRepository
+  private findUserRepository: FindUserByEmailRepository
   private readonly hash: Encryptor
   private readonly idGenerator: IdGenerator
   private readonly tokenGenerator: AuthToken
@@ -33,7 +33,7 @@ class AddUserTestBuilder {
       }
     }
 
-    class FindUserRepositoryStub implements FindUserRepository {
+    class FindUserRepositoryStub implements FindUserByEmailRepository {
       async findByEmail (_email: string): Promise<UserModel | null> {
         return null
       }
@@ -68,7 +68,7 @@ class AddUserTestBuilder {
   }
 
   withExistentUser (): AddUserTestBuilder {
-    class FindUserRepositoryStub implements FindUserRepository {
+    class FindUserRepositoryStub implements FindUserByEmailRepository {
       async findByEmail (_email: string): Promise<UserModel | null> {
         return await Promise.resolve({
           id: 'any-uuid',
@@ -86,7 +86,7 @@ class AddUserTestBuilder {
   }
 
   async build (): Promise<AddCommonUser.Result> {
-    const sut = new AddUser(
+    const sut = new DbAddUser(
       this.addUserRepository,
       this.findUserRepository,
       this.hash,

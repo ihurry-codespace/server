@@ -1,8 +1,8 @@
 import { getRepository } from 'typeorm'
 import { User } from './entity/User'
-import { AddUserRepository, FindUserRepository, UserModel } from '@data/use-cases/interfaces'
+import { AddUserRepository, FindUserByEmailRepository, FindUserByIdRepository, UserModel } from '@data/use-cases/interfaces'
 
-export class UserRepository implements AddUserRepository, FindUserRepository {
+export class UserRepository implements AddUserRepository, FindUserByEmailRepository, FindUserByIdRepository {
   private readonly defaultConnectionName = 'default'
 
   async add (userModel: UserModel): Promise<Omit<UserModel, 'password'>> {
@@ -19,6 +19,17 @@ export class UserRepository implements AddUserRepository, FindUserRepository {
     if (user) {
       const { name, avatar, email, id, password } = user
       return { name, avatar, email, id, password }
+    }
+
+    return null
+  }
+
+  async findById (id: string): Promise<FindUserByIdRepository.Result> {
+    const user = await getRepository(User, this.defaultConnectionName).findOne({ where: { id } })
+
+    if (user) {
+      const { name, avatar, email, id } = user
+      return { name, avatar, email, id }
     }
 
     return null

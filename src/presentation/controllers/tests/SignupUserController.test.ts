@@ -7,7 +7,7 @@ import {
   ServerError
 } from '@presentation/errors'
 import { HttpRequest, HttpResponse } from '@presentation/interfaces/http'
-import { SignupUser, SignupUserController } from './SignupUserController'
+import { SignupUser, SignupUserController } from '../SignupUserController'
 
 class SignupTestBuilder {
   private readonly addUserServiceStub: AddCommonUser

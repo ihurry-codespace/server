@@ -1,4 +1,4 @@
-import { AddUser } from '@data/use-cases/DbAddUser'
+import { DbAddUser } from '@data/use-cases/DbAddUser'
 import { UserRepository } from '@infra/db/mysql/UserRepository'
 import { EmailValidatorAdapter } from '@infra/EmailValidatorAdapter'
 import { EncryptorAdapter } from '@infra/EncryptorAdapter'
@@ -19,7 +19,7 @@ export function makeSignupUserController (): Controller {
   const token = new TokenAdapter()
   const i18n = I18nAdapter.i18n()
 
-  const addUser = new AddUser(
+  const addUser = new DbAddUser(
     addUserRepository,
     findUserRepository,
     hash,

@@ -1,19 +1,19 @@
 import { DuplicateUserException } from '@data/exceptions/DuplicateUserException'
 import { AddCommonUser } from '@domain/usecases/AddCommonUser'
 import { AuthToken } from '@domain/usecases/AuthToken'
-import { AddUserRepository, Encryptor, FindUserRepository, IdGenerator } from './interfaces'
+import { AddUserRepository, Encryptor, FindUserByEmailRepository, IdGenerator } from './interfaces'
 
-export class AddUser implements AddCommonUser {
+export class DbAddUser implements AddCommonUser {
   constructor (
     private readonly addUserRepository: AddUserRepository,
-    private readonly findUserRepository: FindUserRepository,
+    private readonly findUserByEmailRepository: FindUserByEmailRepository,
     private readonly hash: Encryptor,
     private readonly idGenerator: IdGenerator,
     private readonly tokenGenerator: AuthToken
   ) {}
 
   async add (userData: AddCommonUser.Params): Promise<AddCommonUser.Result> {
-    const existentUser = await this.findUserRepository.findByEmail(userData.email)
+    const existentUser = await this.findUserByEmailRepository.findByEmail(userData.email)
 
     if (existentUser) {
       throw new DuplicateUserException()

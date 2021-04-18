@@ -17,7 +17,7 @@ export class DatabaseTestUtils {
   }
 
   static async connect (): Promise<void> {
-    const entityPath = join(__dirname, '../../**/entity/*.ts')
+    const entityPath = join(__dirname, '../../**/entities/*.ts')
     const migrationPath = join(__dirname, '../../**/migration/*.ts')
     const subscriberPath = join(__dirname, '../../**/subscriber/*.ts')
 

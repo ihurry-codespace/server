@@ -8,5 +8,5 @@ export namespace AuthUser {
     password: string
   }
 
-  export interface Result { token: string}
+  export type Result = { token: string} | null
 }

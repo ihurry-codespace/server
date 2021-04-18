@@ -1,7 +1,7 @@
 import { makeRouterAdapter } from '@infra/adapters'
-import { makeSignupUserController } from '@main/factory/Signup'
+import { makeLogin } from '@main/factory/Login'
 import { FastifyInstance } from 'fastify'
 
 export default async (router: FastifyInstance): Promise<void> => {
-  router.post('/signup', makeRouterAdapter(makeSignupUserController()))
+  router.post('/login', makeRouterAdapter(makeLogin()))
 }

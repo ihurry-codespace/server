@@ -23,6 +23,30 @@ export enum UserStatus {
   NEWREG = 'newreg',
 }
 
+/**
+ * Enum user roles
+ * @readonly
+ * @enum {string}
+ */
+export enum UserRole {
+  /**
+   * This user can create and update the company's profile to accept new analysts, register interview flows, vacancies and enrolling candidate for vacancy, approving and reproving candidate sending a message to candidate.
+   */
+  ADMIN = 'admin',
+
+  /**
+   * Can update information from users, register new templates.
+   */
+  SYSTEM_ADMIN = 'system_admin',
+  /**
+   * Registering interview flows, vacancies and enrolling candidate for vacancy, approve and reprove candidate Send a message to candidate.
+   */
+  ANALYST = 'analyst',
+
+  /** Can visualize flows that are participating or participating can send a message to the analyst within the interview stream. */
+  CANDIDATE = 'candidate',
+}
+
 @Entity()
 export class User extends EntityUpdateControl {
   @PrimaryColumn()
@@ -46,4 +70,11 @@ export class User extends EntityUpdateControl {
     default: UserStatus.ACTIVE
   })
   public status!: string
+
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.CANDIDATE
+  })
+  role!: UserRole
 }

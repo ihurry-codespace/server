@@ -1,4 +1,4 @@
-import { config } from '@infra/ConfigAdapter'
+import { config } from '@infra/adapters/ConfigAdapter'
 import { mainConnection } from '@infra/db/mysql/setup'
 import app from '@main/config/app'
 

@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm'
-import { User } from './entity/User'
 import { AddUserRepository, FindUserByEmailRepository, FindUserByIdRepository, UserModel } from '@data/use-cases/interfaces'
+import { User } from '../entities'
 
 export class UserRepository implements AddUserRepository, FindUserByEmailRepository, FindUserByIdRepository {
   private readonly defaultConnectionName = 'default'

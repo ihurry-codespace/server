@@ -1,5 +1,6 @@
+import { UserNotFoundException } from '@data/exceptions'
 import { AuthUser } from '@domain/usecases/AuthUser'
-import { errorManager, ok } from '@presentation/helpers/http-helper'
+import { badRequest, errorManager, ok } from '@presentation/helpers/http-helper'
 import { Controller } from '@presentation/interfaces/Controller'
 import { HttpRequest, HttpResponse } from '@presentation/interfaces/http'
 
@@ -15,10 +16,12 @@ export class LoginController implements Controller {
         password: httpRequest.body?.password ?? ''
       }
 
-      const { token } = await this.authUser.login(user)
+      const result = await this.authUser.login(user)
+
+      if (!result?.token) return badRequest(new UserNotFoundException())
 
       return ok({
-        token
+        token: result.token
       })
     } catch (error) {
       return errorManager(error)

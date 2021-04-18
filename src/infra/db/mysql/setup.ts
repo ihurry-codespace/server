@@ -1,4 +1,4 @@
-import { config } from '@infra/ConfigAdapter'
+import { config } from '@infra/adapters/ConfigAdapter'
 import { createConnection, Connection, ConnectionOptions } from 'typeorm'
 
 export async function mainConnection (): Promise<Connection> {

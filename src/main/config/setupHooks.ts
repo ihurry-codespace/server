@@ -1,4 +1,4 @@
-import { I18nAdapter } from '@infra/I18nAdapter'
+import { I18nAdapter } from '@infra/adapters'
 import { FastifyInstance } from 'fastify'
 
 export async function setupHooks (app: FastifyInstance): Promise<void> {

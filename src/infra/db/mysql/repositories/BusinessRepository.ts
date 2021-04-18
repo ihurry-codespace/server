@@ -1,7 +1,6 @@
 import { getManager } from 'typeorm'
-import { Business } from './entity/Business'
 import { AddBusinessRepository } from '@data/use-cases/interfaces'
-import { BusinessOwner } from './entity/BusinessOwner'
+import { Business, BusinessOwner, User, UserRole } from '../entities'
 
 export class BusinessRepository implements AddBusinessRepository {
   async add (data: AddBusinessRepository.Params): Promise<AddBusinessRepository.Result> {
@@ -13,6 +12,8 @@ export class BusinessRepository implements AddBusinessRepository {
         user_id: userId,
         business_id: onlyBusinessData.id
       })
+
+      await transactionalEntityManager.getRepository(User).update({ id: userId }, { role: UserRole.ADMIN })
 
       return {
         id: onlyBusinessData.id,

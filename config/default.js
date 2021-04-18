@@ -1,6 +1,6 @@
 const { join } = require('path')
 
-const entityPath = join(__dirname, '../../**/entity/*.ts')
+const entityPath = join(__dirname, '../../**/entities/*.ts')
 const migrationPath = join(__dirname, '../../**/migration/*.ts')
 const subscriberPath = join(__dirname, '../../**/subscriber/*.ts')
 

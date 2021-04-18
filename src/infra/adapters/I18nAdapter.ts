@@ -2,7 +2,7 @@ import { FastifyRequest } from 'fastify'
 import * as I18n from 'i18n'
 import path from 'path'
 
-const localePath = path.join(__dirname, './', 'locales')
+const localePath = path.join(__dirname, '../', 'locales')
 
 I18n.configure({
   locales: ['en', 'el'],

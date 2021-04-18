@@ -12,10 +12,10 @@ export class DbAuthUser implements AuthUser {
 
   public async login (user: AuthUser.Params): Promise<AuthUser.Result> {
     const dbUser = await this.findUserRepository.findByEmail(user.email)
-    if (!dbUser) throw new UserNotFoundException()
+    if (!dbUser) return null
 
     const isValidPassword = await this.hash.compare(user.password, dbUser.password)
-    if (!isValidPassword) throw new InvalidPasswordException()
+    if (!isValidPassword) return null
 
     const { id, name } = dbUser
     const token = await this.token.generate({

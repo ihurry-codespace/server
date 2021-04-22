@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm'
+import { Entity, Column, PrimaryColumn, OneToOne } from 'typeorm'
+import { BusinessOwner } from '.'
 import { EntityUpdateControl } from './EntityUpdateControl'
 
 /**
@@ -77,4 +78,7 @@ export class User extends EntityUpdateControl {
     default: UserRole.CANDIDATE
   })
   role!: UserRole
+
+  @OneToOne(type => BusinessOwner, user => User)
+  businessOwner!: BusinessOwner
 }

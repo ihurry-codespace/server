@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm'
+import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm'
+import { BusinessOwner } from '.'
 import { EntityUpdateControl } from './EntityUpdateControl'
 
 @Entity()
@@ -14,4 +15,7 @@ export class Business extends EntityUpdateControl {
 
   @Column({ nullable: true })
   public avatar!: string
+
+  @OneToMany(type => BusinessOwner, business => Business)
+  public businessOwners!: BusinessOwner[]
 }

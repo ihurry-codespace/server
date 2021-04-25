@@ -26,12 +26,7 @@ module.exports = {
       logging: false,
       entities: [entityPath],
       subscribers: [subscriberPath],
-      migrations: [migrationPath],
-      cli: {
-        entitiesDir: 'src/infra/db/mysql/entity',
-        migrationsDir: 'src/infra/db/mysql/migration',
-        subscribersDir: 'src/infra/db/mysql/subscriber'
-      }
+      migrations: [migrationPath]
     }
   }
 }

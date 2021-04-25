@@ -5,12 +5,12 @@ export abstract class EntityUpdateControl {
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)'
   })
-  public createdAt!: Date
+  public created_at!: Date
 
   @UpdateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)'
   })
-  public updatedAt!: Date
+  public updated_at!: Date
 }

@@ -26,7 +26,7 @@ class AddUserTestBuilder {
     }
 
     class AddUserRepositoryStub implements AddUserRepository {
-      async add (userModel: UserModel): Promise<Omit<UserModel, 'password'>> {
+      async add (userModel: AddUserRepository.Params): AddUserRepository.Result {
         const { password, ...rest } = { ...userModel }
 
         return await Promise.resolve(rest)
@@ -75,7 +75,9 @@ class AddUserTestBuilder {
           password: 'any-password',
           avatar: 'http://',
           email: 'test@example.com',
-          name: 'test'
+          name: 'test',
+          created_at: new Date(),
+          updated_at: new Date()
         })
       }
     }

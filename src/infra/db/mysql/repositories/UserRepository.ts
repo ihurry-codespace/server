@@ -5,7 +5,7 @@ import { User } from '../entities'
 export class UserRepository implements AddUserRepository, FindUserByEmailRepository, FindUserByIdRepository {
   private readonly defaultConnectionName = 'default'
 
-  async add (userModel: UserModel): Promise<Omit<UserModel, 'password'>> {
+  async add (userModel: AddUserRepository.Params): AddUserRepository.Result {
     const result = await getRepository(User, this.defaultConnectionName).insert(userModel)
     const insertedId = result.identifiers.find(identifier => identifier.id)
     const { name, avatar, email, id } = await getRepository(User, this.defaultConnectionName).findOne(insertedId) as UserModel
@@ -13,7 +13,7 @@ export class UserRepository implements AddUserRepository, FindUserByEmailReposit
     return { name, avatar, email, id }
   }
 
-  async findByEmail (email: string): Promise<UserModel | null> {
+  async findByEmail (email: FindUserByEmailRepository.Params): FindUserByEmailRepository.Result {
     const user = await getRepository(User, this.defaultConnectionName).findOne({ where: { email } })
 
     if (user) {
@@ -24,7 +24,7 @@ export class UserRepository implements AddUserRepository, FindUserByEmailReposit
     return null
   }
 
-  async findById (id: string): Promise<FindUserByIdRepository.Result> {
+  async findById (id: FindUserByIdRepository.Params): Promise<FindUserByIdRepository.Result> {
     const user = await getRepository(User, this.defaultConnectionName).findOne({ where: { id } })
 
     if (user) {

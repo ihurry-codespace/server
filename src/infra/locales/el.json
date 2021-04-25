@@ -1,3 +1,4 @@
 {
-  "User not found": "Usuario no encontrado"
+	"User not found": "Usuario no encontrado",
+	"Internal server error": "Internal server error"
 }

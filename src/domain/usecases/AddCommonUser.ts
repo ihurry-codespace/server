@@ -1,4 +1,4 @@
-import { CommonUser } from '@domain/entities/User'
+import { CommonUser } from '@domain/entities'
 
 export interface AddCommonUser {
   add: (user: Omit<CommonUser, 'id'>) => Promise<Omit<CommonUser, 'password'>>

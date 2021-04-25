@@ -1,23 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm'
+import { BusinessOwnerRole, UserStatus } from '@data/use-cases/interfaces'
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
 import { Business } from './Business'
 import { EntityUpdateControl } from './EntityUpdateControl'
-import { User, UserStatus } from './User'
-
-/**
- * Enum user roles
- * @readonly
- * @enum {string}
- */
-export enum BusinessOwnerRole {
-  /**
-   * This user can create and update the company's profile to accept new analysts, register interview flows, vacancies and enrolling candidate for vacancy, approving and reproving candidate sending a message to candidate.
-   */
-  ADMIN = 'admin',
-  /**
-   * Registering interview flows, vacancies and enrolling candidate for vacancy, approve and reprove candidate Send a message to candidate.
-   */
-  ANALYST = 'analyst',
-}
+import { Job } from './Job'
+import { User } from './User'
 
 @Entity()
 export class BusinessOwner extends EntityUpdateControl {
@@ -25,11 +11,15 @@ export class BusinessOwner extends EntityUpdateControl {
   public id!: string
 
   @ManyToOne(type => Business, businesses => Business)
+  @JoinColumn({ name: 'business_id' })
   public business!: string
 
   @OneToOne(type => User, businessOwner => BusinessOwner)
-  @JoinColumn()
+  @JoinColumn({ name: 'user_id' })
   user!: User
+
+  @OneToMany(type => Job, jobs => Job)
+  job!: Job[]
 
   @Column({
     type: 'enum',

@@ -1,4 +1,4 @@
-import { Business } from '@domain/entities/Business'
+import { Business } from '@domain/entities'
 
 export interface AddBusiness {
   save: (business: AddBusiness.Params) => Promise<Business>

@@ -9,10 +9,11 @@ export class LogDecorator implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     const result = await this.controller.handle(httpRequest)
 
-    if (result.statusCode > 399 && result.statusCode < 600) {
+    if (result.statusCode > 399 && result.statusCode < 600 && result.body?.stack) {
       console.log('======result.body?.stack======')
       console.error(result.body?.stack)
       console.log('======result.body?.stack======')
+      delete result.body.stack
     }
 
     return result

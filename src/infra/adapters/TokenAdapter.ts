@@ -1,8 +1,8 @@
-import { AuthToken } from '@domain/usecases/AuthToken'
+import { AuthToken, AuthTokenVerify } from '@data/use-cases/interfaces'
 import jwt from 'jsonwebtoken'
 import { config } from './ConfigAdapter'
 
-export class TokenAdapter implements AuthToken {
+export class TokenAdapter implements AuthToken, AuthTokenVerify {
   private readonly algorithm: jwt.Algorithm
   private readonly expiresIn: string
   private readonly privateKey: string
@@ -13,6 +13,27 @@ export class TokenAdapter implements AuthToken {
     this.algorithm = algorithm
     this.expiresIn = expiresIn
     this.privateKey = privateKey
+  }
+
+  async validate ({ token }: AuthTokenVerify.Params): Promise<AuthTokenVerify.Result> {
+    return await new Promise((resolve, reject) => {
+      jwt.verify(
+        token,
+        this.privateKey,
+        (err, value) => {
+          if (err) {
+            return reject(err)
+          }
+
+          const decoded = value as AuthTokenVerify.Result
+
+          resolve({
+            id: decoded.id,
+            name: decoded.name
+          })
+        }
+      )
+    })
   }
 
   async generate (user: AuthToken.Params): Promise<AuthToken.Result> {

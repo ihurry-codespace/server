@@ -7,6 +7,7 @@ export * from './models/BusinessOwnerModel'
 export * from './models/JobModel'
 
 export * from './user/UserRepository'
+export * from './user/Auth'
 export * from './business/AddBusinessRepository'
 export * from './job/AddJobRepository'
 export * from './businessOwner/FindBusinessOwnerByIdRepository'

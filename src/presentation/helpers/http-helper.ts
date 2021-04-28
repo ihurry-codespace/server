@@ -23,6 +23,13 @@ export function ok (body: any): HttpResponse {
   }
 }
 
+export function unauthorized (): HttpResponse {
+  return {
+    statusCode: 401,
+    body: errorBody(new Error('Unauthorized'))
+  }
+}
+
 export function errorBody (error: Error): ErrorBody {
   return {
     message: error?.message ?? '',

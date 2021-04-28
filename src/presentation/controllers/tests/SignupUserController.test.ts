@@ -49,7 +49,9 @@ class SignupTestBuilder {
   }
 
   removeParam (value: keyof SignupUser.Params): SignupTestBuilder {
-    delete this.httpRequestMock.body[value]
+    const obj = this.httpRequestMock?.body ?? {}
+
+    delete obj[value]
 
     return this
   }

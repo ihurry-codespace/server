@@ -10,3 +10,18 @@ export namespace AuthToken {
 
   export interface Result { token: string}
 }
+
+export interface AuthTokenVerify {
+  validate: (token: AuthTokenVerify.Params) => Promise<AuthTokenVerify.Result>
+}
+
+export namespace AuthTokenVerify {
+  export interface Params {
+    token: string
+  }
+
+  export interface Result {
+    id: string
+    name: string
+  }
+}

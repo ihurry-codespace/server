@@ -6,7 +6,6 @@ export class BusinessOwnerRepository implements FindBusinessOwnerByIdRepository 
   private readonly defaultConnectionName = 'default'
 
   async findById (id: string): FindBusinessOwnerByIdRepository.Result {
-    console.log({ id })
     const user = await getRepository(BusinessOwner, this.defaultConnectionName).findOne({ where: { id } })
 
     if (user) {

@@ -1,13 +1,13 @@
 import { AddCommonUser } from '@domain/usecases/AddCommonUser'
 import { AuthToken } from '@domain/usecases/AuthToken'
-import { DbAddUser } from './DbAddUser'
+import { DbAddUser } from '../DbAddUser'
 import {
   AddUserRepository,
   Encryptor,
   FindUserByEmailRepository,
   IdGenerator,
   UserModel
-} from './interfaces'
+} from '../interfaces'
 
 class AddUserTestBuilder {
   private readonly userParams: AddCommonUser.Params

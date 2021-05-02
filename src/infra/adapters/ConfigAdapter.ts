@@ -1,9 +1,12 @@
 import configBase from 'config'
-import { AppConfig, DbMain, TokenConfig } from '../interfaces'
+import { AppConfig, DbMain, TokenConfig, CacheMain } from '../interfaces'
 
 export const config = {
   getDbConfig (): DbMain {
     return configBase.get('dbConfig.main')
+  },
+  getCacheConfig (): CacheMain {
+    return configBase.get('cacheConfig.main')
   },
   getTokenConfig (): TokenConfig {
     return configBase.get('tokenConfig')

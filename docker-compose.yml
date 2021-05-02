@@ -10,6 +10,21 @@ services:
       MYSQL_ROOT_PASSWORD: supersecret
       MYSQL_PASSWORD: supersecret
       MYSQL_USER: mysql
+  redis:
+    image: redis
+    command: redis-server --requirepass Redis2019!
+    ports:
+      - '6379:6379'
+
+  dynamodb-local:
+    command: '-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data'
+    image: 'amazon/dynamodb-local:latest'
+    container_name: dynamodb-local
+    ports:
+      - '8000:8000'
+    volumes:
+      - './docker/dynamodb:/home/dynamodblocal/data'
+    working_dir: /home/dynamodblocal
 
   # db_mongo:
   #   image: mongo:latest

@@ -9,6 +9,6 @@ export interface Job {
   quantity: number
   career_id: number
   career_seniority_id: number
-  flow_id: string
+  flow_id: number
   business_owner_id: string
 }

@@ -6,7 +6,21 @@ export class JobsRepository implements AddJobRepository {
   private readonly defaultConnectionName = 'default'
 
   async save (jobModel: AddJobRepository.Params): AddJobRepository.Result {
-    const result = await getRepository(Job, this.defaultConnectionName).insert(jobModel)
+    const result = await getRepository(Job, this.defaultConnectionName).insert({
+      ...jobModel,
+      careerSeniority: {
+        id: jobModel.career_seniority_id
+      },
+      businessOwner: {
+        id: jobModel.business_owner_id
+      },
+      career: {
+        id: jobModel.career_id
+      },
+      flow: {
+        id: jobModel.flow_id
+      }
+    })
     const insertedId = result.identifiers.find(identifier => identifier.id)
     const {
       id,

@@ -6,7 +6,7 @@ import { EntityUpdateControl } from './EntityUpdateControl'
 @Entity()
 export class Career extends EntityUpdateControl {
   @PrimaryGeneratedColumn('increment')
-  public id!: string
+  public id!: number
 
   @Column()
   public name!: string

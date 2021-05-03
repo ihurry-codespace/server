@@ -8,6 +8,5 @@ import { FastifyInstance } from 'fastify'
 export default async (router: FastifyInstance): Promise<void> => {
   router.post('/job', {
     preValidation: makeMiddlewareAdapter(makeAuthentication([UserRole.ADMIN, UserRole.ANALYST]))
-  },
-  makeRouterAdapter(makeAddJobController()))
+  }, makeRouterAdapter(makeAddJobController()))
 }

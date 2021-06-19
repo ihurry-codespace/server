@@ -17,12 +17,12 @@
     "test:ci": "npm run test:setup -- --coverage",
     "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "test:watch": "jest --watchAll",
-    "postinstall": "husky install && husky add .husky/commit-msg \"npx --no-install commitlint --edit $1\" && husky add .husky/pre-commit \"npm run test:staged\"",
     "test:coverage": "jest --coverage",
     "up": "docker-compose up --build -d",
     "down": "docker-compose down --remove-orphans",
     "test-up": "docker-compose --file docker-compose.test.yml up --build -d --remove-orphans",
-    "test-down": "docker-compose --file docker-compose.test.yml down --remove-orphans"
+    "test-down": "docker-compose --file docker-compose.test.yml down --remove-orphans",
+    "prepare": "husky install"
   },
   "author": "rafamaxber@gmail.com",
   "license": "UNLICENSED",
@@ -58,7 +58,7 @@
     "typescript": "^4.2.3"
   },
   "engines": {
-    "node": "15.x"
+    "node": "16.x"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

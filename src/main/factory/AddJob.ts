@@ -8,14 +8,14 @@ import { AddJobControllers } from '@presentation/controllers/AddJobControllers'
 import { Controller } from '@presentation/interfaces/Controller'
 
 export function makeAddJobController (): Controller {
-  const businessOwnerRepository = new BusinessOwnerRepository()
-  const jobsRepository = new JobsRepository()
-  const addJobRepository = new DbAddJob(jobsRepository, businessOwnerRepository)
+  const findBusinessOwnerByIdRepository = new BusinessOwnerRepository()
+  const addJobRepository = new JobsRepository()
+  const jobRepository = new DbAddJob(addJobRepository, findBusinessOwnerByIdRepository)
 
   const i18n = I18nAdapter.i18n()
 
   const mainController = new LogDecorator(
-    new TranslateErrorMessageDecorator(new AddJobControllers(addJobRepository), i18n)
+    new TranslateErrorMessageDecorator(new AddJobControllers(jobRepository), i18n)
   )
 
   return mainController

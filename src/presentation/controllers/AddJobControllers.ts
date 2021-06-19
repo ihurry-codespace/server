@@ -21,8 +21,9 @@ export class AddJobControllers implements Controller {
         quantity,
         career_id: careerId,
         career_seniority_id: careerSeniorityId,
-        business_owner_id: ownerId,
-        flow_id: flowId
+        flow_id: flowId,
+        business_owner_id: ownerId
+
       } = httpRequest.body
 
       const result = await this.addJobRepository.add({

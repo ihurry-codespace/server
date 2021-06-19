@@ -28,5 +28,10 @@ module.exports = {
       subscribers: [subscriberPath],
       migrations: [migrationPath]
     }
+  },
+  cacheConfig: {
+    main: {
+      host: process.env.CACHE_HOST
+    }
   }
 }

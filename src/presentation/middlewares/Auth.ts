@@ -1,10 +1,3 @@
-// 1 verificar se token é um JWT válido
-// 2 verificar se data do token ainda nao expirou
-// 3 verificar se token foi gerado pela app
-// 4 verificar se token esta na lista de tokens ja utilizados
-// 5 verificar se usuario existe
-// 7 liberar acesso
-
 import { AuthTokenVerify } from '@domain/usecases/AuthToken'
 import { errorManager, ok, unauthorized } from '@presentation/helpers/http-helper'
 import { HttpRequest, HttpResponse } from '@presentation/interfaces/http'

@@ -117,3 +117,4 @@ dist
 
 # database for integration tests
 ihurry.sqlite
+docker/dynamodb/shared-local-instance.db

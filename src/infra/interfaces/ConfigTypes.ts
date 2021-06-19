@@ -23,6 +23,10 @@ export interface DbMain {
   cli: DBCli
 }
 
+export interface CacheMain {
+  host: string
+}
+
 export interface DBCli {
   entitiesDir: string
   migrationsDir: string

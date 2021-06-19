@@ -1,11 +1,13 @@
 import { config } from '@infra/adapters/ConfigAdapter'
 import { mainConnection } from '@infra/db/mysql/setup'
+import { cacheConnection } from '@infra/db/redis/setup'
 import app from '@main/config/app'
 
 export const startServer = async (): Promise<void> => {
   try {
     console.log('⬜ Connecting database...')
     await mainConnection()
+    await cacheConnection()
     console.log('✅ Connected database')
 
     const { HOST, PORT } = config.getAppConfig()
